@@ -1,0 +1,10 @@
+{
+  "name": "MoodsicDBPopulater",
+  "author": "Kyle Buzby",
+  "devDependencies": {
+    "node-gyp": "^3.6.2"
+  },
+  "dependencies": {
+    "hdf5": "^0.3.1"
+  }
+}
