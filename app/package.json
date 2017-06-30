@@ -1,0 +1,24 @@
+{
+  "name": "moodsic",
+  "author": "Kyle Buzby",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "nodemon": "^1.11.0",
+    "watchify": "^3.9.0"
+  },
+  "scripts": {
+    "start": "node server/app.js",
+    "dev-server": "nodemon",
+    "dev-client": "watchify client/app.js -o client/bundle.js -v"
+  }
+}
