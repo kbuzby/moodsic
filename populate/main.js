@@ -25,7 +25,10 @@ recursiveRead(datadir,function(err,files) {
   }
 })
 
-//TODO process each file in the array
+//TODO
+outputErrors();
+
+//process each file in the array
 function process(file) {
   var hdf5File = new hdf5.File(file,Access.ACC_RDONLY);
   var hdf5Track = {
@@ -127,9 +130,22 @@ function searchGenius(artist,album,track) {
 var errorLog = []
 
 function handleError(trackId,msg,err) {
-  //TODO
   if (!errorLog[trackId]) {
     errorLog[trackId] = [];
   }
   errorLog[trackId].push({message: msg, error: err});
+}
+
+function outputErrors() {
+  if (errorLog.length > 0) {
+    for (var trackId in errorLog) {
+      console.log('Errors loading ' + trackId + ':');
+      for (var i in errorLog[trackId]) {
+        console.log('  ' + errorLog[trackId][i].msg + ', error: ' + err);
+      }
+    }
+  }
+  else {
+    console.log("No errors");
+  }
 }
