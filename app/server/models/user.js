@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+//mongoose.Promise = global.Promise;
 
 var userSchema = new Schema({
   //account info

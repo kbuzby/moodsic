@@ -5,8 +5,11 @@
     "node-gyp": "^3.6.2"
   },
   "dependencies": {
+    "async": "^2.5.0",
+    "bluebird": "^3.5.0",
     "hdf5": "^0.3.1",
     "mongoose": "^4.11.0",
-    "recursive-readdir": "^2.2.1"
+    "recursive-readdir": "^2.2.1",
+    "yargs": "^8.0.2"
   }
 }

@@ -1,5 +1,5 @@
-const secrets = require('./secrets');
+const db = require('./secrets').db;
 
 module.exports = {
-  url: 'mongodb://'+secrets.db.user+':'+secrets.db.pwd+'@localhost:27017/moodsic'
+  url: "mongodb://"+db.user+":"+db.pwd+"@localhost:27017/moodsic"
 }
