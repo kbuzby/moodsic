@@ -3,7 +3,6 @@ const hdf5 = require('hdf5').hdf5;
 const h5tb = require('hdf5').h5tb;
 const h5lt = require('hdf5').h5lt;
 const Access = require('hdf5/lib/globals.js').Access;
-const os = require('os');
 const fs = require('fs');
 const recursiveRead = require('recursive-readdir');
 const path = require('path');
@@ -12,10 +11,9 @@ const https = require('https');
 const async = require('async');
 const argv = require('yargs').argv;
 
-const datadir = path.join(os.homedir(),'moodsic','data','MillionSongSubset','data');
-
 const db = require('../app/server/config/db');
 const secrets = require('../app/server/config/secrets');
+const datadir = secrets.datadir;
 
 var Track = require('./models/track');
 var Album = require('./models/album');
@@ -163,7 +161,7 @@ function saveArtist(hdf5Track,cb) {
     if (!artist) {
       artist = new Artist({
         name: hdf5Track.metadata.artist_name,
-        echoNest_id: hdf5Track.metadata.artist_id,
+        _id: hdf5Track.metadata.artist_id,
         related_artists: hdf5Track.metadata.similar_artists,
         location: hdf5Track.metadata.artist_location,
         terms: hdf5Track.metadata.artist_terms
@@ -186,7 +184,7 @@ function saveAlbum(hdf5Track,artistId,cb) {
       album = new Album({
         name: hdf5Track.metadata.release,
         year: hdf5Track.metadata.year,
-        sevenDigitalId: hdf5Track.metadata.release_7digitalid,
+        _id: hdf5Track.metadata.release_7digitalid,
         artist_id: artistId
       });
       album.save(function (err) {
@@ -201,13 +199,11 @@ function saveAlbum(hdf5Track,artistId,cb) {
 
 function saveTrack(hdf5Track,albumId,cb) {
   Track.create({
+    _id: hdf5Track.trackId,
     title: hdf5Track.metadata.title,
     duration: parseNumber(hdf5Track.analysis.duration),
     album_id: albumId,
-    echoNest: {
-      song_id: hdf5Track.metadata.song_id,
-      track_id: hdf5Track.trackId
-    },
+    en_song_id:  hdf5Track.metadata.song_id,
     mode: parseNumber(hdf5Track.analysis.mode),
     key: parseNumber(hdf5Track.analysis.key),
     tempo: parseNumber(hdf5Track.analysis.tempo),
