@@ -74,6 +74,30 @@ function run() {
     //  })
     //})
   }
+  else if (argv.testgenius) {
+    var searchTerm = 'Kendrick%20Lamar';
+
+    var req = https.get({
+      hostname: "api.genius.com",
+      method: 'GET',
+      path: '/search?q='+searchTerm,
+      headers: {
+          Authorization: 'Bearer '+secrets.genius.access_token
+      }
+    }, function(res) {
+      var rawData = '';
+      res.on('data', function(chunk) {rawData += chunk;});
+      res.on('end',function() {
+        var data = JSON.parse(rawData);
+        console.log(data.response.hits[0]);
+      })
+    });
+    req.on('error',function(err) {
+      console.log(err);
+    })
+    console.log(req);
+    req.end();
+  }
   else {
     //read all the files in the directory and process each
     recursiveRead(datadir,function(err,files) {
