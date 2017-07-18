@@ -23,7 +23,7 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(db.url);
 
-//mongoose.set('debug',true);
+mongoose.set('debug',true);
 
 console.log('Connecting...');
 
@@ -197,7 +197,7 @@ function saveAlbum(hdf5Track,artistId,cb) {
 
 function saveTrack(hdf5Track,albumId,cb) {
   Track.create({
-    _id: hdf5Track.trackId,
+    _id: hdf5Track.track_id,
     title: hdf5Track.metadata.title,
     duration: parseNumber(hdf5Track.analysis.duration),
     album_id: albumId,
@@ -210,6 +210,7 @@ function saveTrack(hdf5Track,albumId,cb) {
     loudness: parseNumber(hdf5Track.analysis.loudness),
     hotttness: parseNumber(hdf5Track.metadata.song_hotttnesss),
   }, function(err,track) {
+    if (err) console.log(err);
     //TODO add error handling
     console.log('inner track saved');
 
