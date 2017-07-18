@@ -188,9 +188,7 @@ function saveAlbum(hdf5Track,artistId,cb) {
         artist_id: artistId
       });
       album.save(function (err) {
-        if (err) {
-          handleError(hdf5Track.track_id,"Problem saving album",err);
-        }
+        //TODO add error handling
       });
     }
     saveTrack(hdf5Track,album._id,cb);
