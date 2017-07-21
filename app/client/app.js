@@ -20,5 +20,6 @@ require('./controllers/resultsController')(app);
 
 //services
 require('./services/user')(app);
+require('./services/session')(app);
 
 //directives
