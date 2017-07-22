@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
+  app.config(['$routeProvider','$locationProvider', 'Session', function($routeProvider, $locationProvider, Session) {
 
     $routeProvider
     .when('/login', {
