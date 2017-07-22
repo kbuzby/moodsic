@@ -1,4 +1,5 @@
 //TODO add requires for server controllers
+const path = require('path');
 const user = require('./controllers/user');
 
 module.exports = function(app) {
@@ -20,6 +21,6 @@ module.exports = function(app) {
     .post(user.login)
 
   app.get('*',function(req,res) {
-    res.sendFile(path.join(__dirname + '../client/app.html'))
+    res.sendFile(path.join(__dirname + '/../client/'+'app.html'))
   })
 }

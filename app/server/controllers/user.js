@@ -25,7 +25,7 @@ function update(req,res) {
   })
 }
 
-function changePassword(req.res) {
+function changePassword(req,res) {
   var id = req.params.id;
   var old_pass = req.data.password;
   var new_pass = req.data.new_password;
@@ -33,7 +33,7 @@ function changePassword(req.res) {
   User.findById(id, function(err,user) {
     if (err) res.send(err);
 
-    if !(user) {
+    if (!user) {
       //TODO send user not found response, but this shouldn't happen at this point
     }
 

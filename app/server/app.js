@@ -17,9 +17,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-app.use(express.static(path.join('__dirname'+'../client')));
+app.use(express.static(path.join(__dirname+'/../client')));
 
-app.use('/bootstrap',express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
+app.use('/bootstrap',express.static(path.join(__dirname, '/../node_modules/bootstrap/dist')));
 
 require('./routes')(app);
 

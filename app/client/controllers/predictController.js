@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('predictController',[function() {
+  app.controller('predictController',['$scope',function($scope) {
 
   }]);
 }

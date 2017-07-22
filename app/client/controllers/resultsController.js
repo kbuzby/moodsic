@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('resultsController',[function() {
+  app.controller('resultsController',['$scope',function($scope) {
 
   }]);
 }

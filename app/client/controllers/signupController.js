@@ -1,7 +1,7 @@
 module.exports = function(app) {
-  app.controller('signupController',['$window','Session','User',function($window,Session,User) {
+  app.controller('signupController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
 
-    if (Session.user) goToPredictPage();
+    if (Session.getUser()) goToPredictPage();
 
     $scope.signup = function(name,username,password,location) {
       //TODO make sure there's some validation

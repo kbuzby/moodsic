@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.config(['$routeProvider','$locationProvider', 'Session', function($routeProvider, $locationProvider, Session) {
+  app.config(['$routeProvider','$locationProvider',function($routeProvider, $locationProvider) {
 
     $routeProvider
     .when('/login', {
@@ -19,6 +19,6 @@ module.exports = function(app) {
       controller: 'resultsController'
     });
 
-    $locationProvider.html5mode(true);
+    $locationProvider.html5Mode(true);
   }])
 }

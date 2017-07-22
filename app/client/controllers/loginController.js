@@ -1,7 +1,7 @@
 module.exports = function(app) {
-  app.controller('loginController',['$window','Session','User',function($window,Session,User) {
+  app.controller('loginController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
 
-    if (Session.user) goToPredictPage();
+    if (Session.getUser()) goToPredictPage();
 
     $scope.login = function(username,password) {
 

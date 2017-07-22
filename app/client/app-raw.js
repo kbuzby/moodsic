@@ -1,0 +1,27 @@
+global.jQuery = require('jquery');
+global.$ = global.jQuery;
+
+require('bootstrap');
+
+var angular = require('angular');
+require('angular-route'); //ng-route
+
+//main angular module for the app
+var app = angular.module('moodsic',['ngRoute']);
+
+//services
+require('./services/user')(app);
+require('./services/session')(app);
+
+//controllers
+require('./controllers/loginController')(app);
+require('./controllers/signupController')(app);
+require('./controllers/predictController')(app);
+require('./controllers/resultsController')(app);
+
+
+//directives
+
+
+//routes
+require('./routes')(app);

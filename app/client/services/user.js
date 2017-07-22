@@ -20,7 +20,7 @@ module.exports = function(app) {
 
       changePassword: function(id,data) {
         return $http.patch('/api/user'+id+'change_password',data).then(returnData);
-      }
+      },
 
       addArtist: function(id,artist) {
         return $http.patch('/api/user/'+id+'/add_artist',artist).then(returnData);
