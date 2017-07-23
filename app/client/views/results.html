@@ -1,0 +1,15 @@
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Album</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-reapeat="song in songs">
+      <td>{{song.title}}</td>
+      <td>{{song.artist}}</td>
+      <td>{{song.album}}</td>
+    </tr>
+</table>
