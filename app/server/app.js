@@ -7,7 +7,11 @@ const path = require('path');
 
 const db = require('./config/db');
 
-mongoose.connect(db.url, {useMongoClient: true});
+//mongoose.Promise = global.Promise;
+
+mongoose.connect(db.url);
+
+mongoose.set('debug', true);
 
 app.use(bodyParser.json());
 

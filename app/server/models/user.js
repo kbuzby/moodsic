@@ -11,7 +11,7 @@ var userSchema = new Schema({
   //bio info
   name: {type: String},
   location: {type: String},
-  liked_artists: [{artist_id: {type: Schema.Types.ObjectId, ref: 'Artist'}}]
+  liked_artists: [{artist_id: {type: String, ref: 'Artist'}}]
 });
 
 

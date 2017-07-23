@@ -10,12 +10,13 @@ module.exports = {
 }
 
 function create(req,res) {
-  var new_user = new User(req.data);
-
+  var new_user = new User(req.body);
   new_user.save(function(err) {
-    if (err) res.send(err);
-    //TODO send valid user created response
-  })
+    if (err) {
+      res.send(err);
+    }
+    res.json({user: new_user.username});
+  });
 }
 
 function update(req,res) {
@@ -27,8 +28,8 @@ function update(req,res) {
 
 function changePassword(req,res) {
   var id = req.params.id;
-  var old_pass = req.data.password;
-  var new_pass = req.data.new_password;
+  var old_pass = req.body.password;
+  var new_pass = req.body.new_password;
 
   User.findById(id, function(err,user) {
     if (err) res.send(err);
@@ -54,7 +55,7 @@ function changePassword(req,res) {
 
 function addArtist(req,res) {
   var id = req.params.id;
-  var artist_id = req.data;
+  var artist_id = req.body;
   User.findById(id, function (err,user) {
     if (err) res.send(err);
 
@@ -75,17 +76,20 @@ function login(req,res) {
     if (err) res.send(err);
 
     if (!user) {
-      //TODO send user not found response
+      console.log('user not found' + user.username);
+      res.json({status: 'userNotFound'});
     }
 
     user.comparePassword(credentials.password, function(err,isMatch) {
       if (err) res.send(err);
 
       if (isMatch) {
-        //TODO send logged in response
+        console.log('loggin in '+user.username);
+        res.json({status: 'loggedIn', user: user.username});
       }
       else {
-        //TODO send invalid password response
+        console.log('invalid password');
+        res.json({status: 'invalidPassword'});
       }
     })
   })

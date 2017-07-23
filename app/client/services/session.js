@@ -19,7 +19,6 @@ module.exports = function(app) {
     }
 
     this.getUser = function() {
-      console.log(user);
       return user;
     }
   }]);
