@@ -10,6 +10,10 @@ module.exports = function(app) {
       templateUrl: 'views/signup.html',
       controller: 'signupController'
     })
+    .when('/profile/artists', {
+      templateUrl: 'views/add_artists.html',
+      conroller: 'addArtistsController'
+    })
     .when('/predict', {
       templateUrl: 'views/predict.html',
       controller: 'predictController'

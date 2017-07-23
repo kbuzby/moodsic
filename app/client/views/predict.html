@@ -1,3 +1,23 @@
-<div ng-controller="predictController">
-  <!--TODO implement series of questions -->
+<div class="well" ng-controller="predictController">
+  <!--TODO mode calculator (happy vs sad)-->
+  <div class="btn-group" role="group">
+    <button type="button" class="btn" ng-class="{'btn-primary':mode==0}">Happy</button>
+    <button type="button" class="btn" ng-class="{'btn-primary':mode==1}">Sad</button>
+  </div>
+
+  <!--TODO key calculator (??)-->
+
+  <!--TODO tempo calculator - set a beat with a button-->
+
+  <!--TODO danceability calculator - createa slider-->
+
+  <!--TODO energy calculator - create a slider -->
+
+  <!--TODO loudness calculator-->
+  <div class="btn-group" role="group">
+    <button type="button" class="btn" ng-class="{'btn-primary':loudness==0}">Keep It Down</button>
+    <button type="button" class="btn" ng-class="{'btn-primary':loudness==1}">Feeling Loud</button>
+  </div>
+
+  <!--TODO hotttness calculator-->
 </div>

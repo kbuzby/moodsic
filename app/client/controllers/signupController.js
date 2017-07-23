@@ -1,7 +1,7 @@
 module.exports = function(app) {
   app.controller('signupController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
 
-    if (Session.getUser()) goToPredictPage();
+    if (Session.getUser()) $window.location.href = "/predict";
 
     $scope.signup = function(name,username,password,location) {
       //TODO make sure there's some validation
@@ -12,12 +12,8 @@ module.exports = function(app) {
         location: location
       }).then(function(retData) {
         Session.login(retData.user);
-        goToPredictPage();
+        $window.location.href = "/profile/artists";
       })
-    }
-
-    function goToPredictPage() {
-      $window.location.href = "/predict";
     }
   }]);
 }

@@ -18,6 +18,7 @@ require('./controllers/loginController')(app);
 require('./controllers/signupController')(app);
 require('./controllers/predictController')(app);
 require('./controllers/resultsController')(app);
+require('./controllers/addArtistsController')(app);
 
 
 //directives
