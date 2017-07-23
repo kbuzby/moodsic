@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.config(['$routeProvider','$locationProvider',function($routeProvider, $locationProvider) {
+  app.config(['$routeProvider','$locationProvider','Session',function($routeProvider, $locationProvider, Session) {
 
     $routeProvider
     .when('/login', {
@@ -21,8 +21,18 @@ module.exports = function(app) {
     .when('/results', {
       templateUrl: 'views/results.html',
       controller: 'resultsController'
-    });
+    })
+    .otherwise({redirectTo: defaultUrl()});
 
     $locationProvider.html5Mode(true);
+
+    function defaultUrl() {
+      if (Session.getUser()) {
+        return '/predict';
+      }
+      else {
+        return '/login';
+      }
+    }
   }])
 }
