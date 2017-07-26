@@ -11,14 +11,14 @@
     <script src="app.js" type="text/javascript"></script>
   </head>
 
-  <body ng-app="moodsic" ng-strict-di>
+  <body ng-app="moodsic" ng-strict-di ng-controller="appController">
     <nav class="nav navbar-inverse">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">moodsic</a>
       </div>
 
       <ul class="nav navbar-nav">
-
+        <li><button class="btn btn-danger" ng-show="loggedIn" ng-click="logout()">Log Out</button>
       </ul>
     </nav>
     <br>

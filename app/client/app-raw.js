@@ -14,6 +14,7 @@ require('./services/user')(app);
 require('./services/session')(app);
 
 //controllers
+require('./controllers/appController')(app);
 require('./controllers/loginController')(app);
 require('./controllers/signupController')(app);
 require('./controllers/predictController')(app);
