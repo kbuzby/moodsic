@@ -87,8 +87,8 @@ function findByMood(req,res) {
 
 function getRange(val,dif) {
   return {
-    min: getMinValue(val,dif);
-    max: getMaxValue(val,dif);
+    min: getMinValue(val,dif),
+    max: getMaxValue(val,dif)
   }
 }
 
