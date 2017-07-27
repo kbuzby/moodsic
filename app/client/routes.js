@@ -14,6 +14,10 @@ module.exports = function(app) {
       templateUrl: 'views/profile.html',
       controller: 'profileController'
     })
+    .when('/profile/edit', {
+      templateUrl: 'views/edit_profile.html',
+      controller: 'editProfileController'
+    })
     .when('/profile/artists', {
       templateUrl: 'views/add_artists.html',
       conroller: 'addArtistsController'

@@ -3,3 +3,5 @@ data
 */node_modules
 
 app/server/config/secrets.js
+
+app/client/app.js
