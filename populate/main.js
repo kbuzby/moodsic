@@ -185,7 +185,7 @@ function saveAlbum(hdf5Track,artistId,cb) {
         name: hdf5Track.metadata.release,
         year: hdf5Track.metadata.year,
         _id: hdf5Track.metadata.release_7digitalid,
-        artist_id: artistId
+        artist: artistId
       });
       album.save(function (err) {
         //TODO add error handling
@@ -200,7 +200,7 @@ function saveTrack(hdf5Track,albumId,cb) {
     _id: hdf5Track.track_id,
     title: hdf5Track.metadata.title,
     duration: parseNumber(hdf5Track.analysis.duration),
-    album_id: albumId,
+    album: albumId,
     en_song_id:  hdf5Track.metadata.song_id,
     mode: parseNumber(hdf5Track.analysis.mode),
     key: parseNumber(hdf5Track.analysis.key),
