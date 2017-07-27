@@ -17,6 +17,7 @@ require('./services/session')(app);
 require('./controllers/appController')(app);
 require('./controllers/loginController')(app);
 require('./controllers/signupController')(app);
+require('./controllers/profileController')(app);
 require('./controllers/predictController')(app);
 require('./controllers/resultsController')(app);
 require('./controllers/addArtistsController')(app);

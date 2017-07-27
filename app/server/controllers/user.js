@@ -6,16 +6,18 @@ module.exports = {
   update: update,
   changePassword: changePassword,
   addArtist: addArtist,
-  login: login
+  login: login,
+  get: get
 }
 
 function create(req,res) {
   var new_user = new User(req.body);
   new_user.save(function(err) {
     if (err) {
+      console.log(err);
       res.send(err);
     }
-    res.json({user: new_user.username});
+    res.json({user: new_user._id});
   });
 }
 
@@ -85,12 +87,21 @@ function login(req,res) {
 
       if (isMatch) {
         console.log('loggin in '+user.username);
-        res.json({status: 'loggedIn', user: user.username});
+        res.json({status: 'loggedIn', user: user._id});
       }
       else {
         console.log('invalid password');
         res.json({status: 'invalidPassword'});
       }
     })
+  })
+}
+
+function get(req,res) {
+  var id = req.params.id;
+
+  User.findById(id,'name username location',function(err,user) {
+    if (err) console.log(err);
+    res.json(user);
   })
 }

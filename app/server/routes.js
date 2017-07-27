@@ -10,6 +10,7 @@ module.exports = function(app) {
 
   app.route('/api/user/:id')
     .patch(user.update)
+    .get(user.get)
 
   app.route('/api/user/:id/add_artist')
     .patch(user.addArtist)

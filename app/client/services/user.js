@@ -24,6 +24,10 @@ module.exports = function(app) {
 
       addArtist: function(id,artist) {
         return $http.patch('/api/user/'+id+'/add_artist',artist).then(returnData);
+      },
+
+      get: function(id) {
+        return $http.get('/api/user/'+id).then(returnData);
       }
     }
   }]);
