@@ -6,7 +6,7 @@ var trackSchema = new Schema({
   _id: {type: String},
   title: {type: String},
   duration: {type: Number},
-  album_id: {type: String, ref: 'Album', index: true},
+  album: {type: String, ref: 'Album', index: true},
 
   //external resources
   en_song_id: {type: String},
