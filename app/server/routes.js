@@ -1,6 +1,7 @@
 //TODO add requires for server controllers
 const path = require('path');
 const user = require('./controllers/user');
+const track = require('./controllers/track');
 
 module.exports = function(app) {
 
@@ -20,6 +21,9 @@ module.exports = function(app) {
 
   app.route('/api/login')
     .post(user.login)
+
+  app.route('/api/track/find_by_mood')
+    .get(track.findByMood)
 
   app.get('*',function(req,res) {
     res.sendFile(path.join(__dirname + '/../client/'+'app.html'))

@@ -29,6 +29,58 @@ function findByMood(req,res) {
   //TODO find the tracks that roughly match the adjusted params - build a query and then exec after it's constructed
   //search on the params first then populate with the related albums and artists
   //then filter to all the related artsist of the liked artists
+  var query = Track.find({
+    mode: mode,
+    key: key
+  }).where('tempo').gte(tempo.min).lte(tempo.max)
+  .where('danceability').gte(danceability.min).lte(danceability.max)
+  .where('energy').gte(energy.min).lte(energy.max)
+  .where('loudness').gte(loudness.min).lte(loudness.max)
+  .where('hotttness').gte(hotttness.min).lte(hotttness.max)
+
+  //if the user has liked artists and we have a list of related artists
+  //then filter based on them
+  if (relatedArtists.length) {
+    query.populate({
+      path: 'album_id',
+      select: 'artist_id name',
+      match: {
+        artist_id: {$in: relatedArtists}
+      },
+      populate: {
+        path: 'artist_id',
+        select: 'name'
+      }
+    });
+  }
+  else {
+    query.populate({
+      path: 'album_id',
+      select: 'artist_id name',
+      populate: {
+        path: 'artist_id',
+        select: 'name'
+      }
+    });
+  }
+
+  query.select('title album_id');
+
+  query.exec(function(err,tracks){
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
+    else {
+      //remove tracks that didn't get album populated
+      //the album wouldn't be populated in cases when we are limiting based on relatedArtists
+      tracks = tracks.filter(function(track){
+        return track.album.name !== undefined;
+      });
+
+      res.json(tracks);
+    }
+  });
 
 
 }
