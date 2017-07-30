@@ -12,6 +12,7 @@ var app = angular.module('moodsic',['ngRoute']);
 //services
 require('./services/user')(app);
 require('./services/session')(app);
+require('./services/track')(app);
 
 //controllers
 require('./controllers/appController')(app);

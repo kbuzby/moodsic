@@ -1,5 +1,25 @@
+const Track = require('../models/track');
+const Album = require('../models/album');
+const Artist = require('../models/artist');
+
 module.exports = {
-  findByMood: findByMood
+  findByMood: findByMood,
+  get20: get20
+}
+
+function get20(req,res) {
+  Track.find({},'title album').limit(20).populate({
+    path: 'album',
+    select: 'artist name',
+    populate: {
+      path: 'artist',
+      select: 'name'
+    }
+  })
+  .exec(function(err,tracks) {
+    if (err) console.log(err);
+    else res.json(tracks);
+  })
 }
 
 function findByMood(req,res) {

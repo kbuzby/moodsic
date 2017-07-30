@@ -22,8 +22,11 @@ module.exports = function(app) {
   app.route('/api/login')
     .post(user.login)
 
-  app.route('/api/track/find_by_mood')
+  app.route('/api/tracks/find_by_mood')
     .get(track.findByMood)
+
+  app.route('/api/tracks/get20')
+    .get(track.get20)
 
   app.get('*',function(req,res) {
     res.sendFile(path.join(__dirname + '/../client/'+'app.html'))

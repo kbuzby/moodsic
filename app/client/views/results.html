@@ -1,15 +1,17 @@
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Artist</th>
-      <th>Album</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-reapeat="song in songs">
-      <td>{{song.title}}</td>
-      <td>{{song.artist}}</td>
-      <td>{{song.album}}</td>
-    </tr>
-</table>
+<div class="well" ng-controller="resultsController">
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Album</th>
+        <th>Artist</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="track in tracks">
+        <td>{{track.title}}</td>
+        <td>{{track.album.name}}</td>
+        <td>{{track.album.artist.name}}  <span class="glyphicon glyphicon-plus"/></td>
+      </tr>
+  </table>
+</div>
