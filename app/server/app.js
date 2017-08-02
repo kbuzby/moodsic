@@ -24,6 +24,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(path.join(__dirname+'/../client')));
 
 app.use('/bootstrap',express.static(path.join(__dirname, '/../node_modules/bootstrap/dist')));
+app.use('/angularjs-slider',express.static(path.join(__dirname, '/../node_modules/angularjs-slider/dist')));
 
 require('./routes')(app);
 

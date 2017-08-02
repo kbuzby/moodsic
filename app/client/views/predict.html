@@ -1,23 +1,38 @@
 <div class="well" ng-controller="predictController">
   <!--TODO mode calculator (happy vs sad)-->
+  <h3>How are you feeling today?</h3>
   <div class="btn-group" role="group">
-    <button type="button" class="btn" ng-class="{'btn-primary':mode==0}">Happy</button>
-    <button type="button" class="btn" ng-class="{'btn-primary':mode==1}">Sad</button>
-  </div>
-
-  <!--TODO key calculator (??)-->
-
-  <!--TODO tempo calculator - set a beat with a button-->
-
-  <!--TODO danceability calculator - createa slider-->
-
-  <!--TODO energy calculator - create a slider -->
-
-  <!--TODO loudness calculator-->
-  <div class="btn-group" role="group">
-    <button type="button" class="btn" ng-class="{'btn-primary':loudness==0}">Keep It Down</button>
-    <button type="button" class="btn" ng-class="{'btn-primary':loudness==1}">Feeling Loud</button>
+    <button type="button" class="btn" ng-class="{'btn-primary':req.mode==0}" ng-click="req.mode=0">Happy</button>
+    <button type="button" class="btn" ng-class="{'btn-primary':req.mode==1}" ng-click="req.mode=1">Sad</button>
   </div>
 
   <!--TODO hotttness calculator-->
+  <h3>Feeling hipster?</h3>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn" ng-class="{'btn-primary':req.hotttness==0}" ng-click="req.hotttness=0">Always</button>
+    <button type="button" class="btn" ng-class="{'btn-primary':req.hotttness==1}" ng-click="req.hotttness=1">Never</button>
+  </div>
+
+  <!--TODO tempo calculator - set a beat with a button-->
+  <h3>Give us a beat</h3>
+
+  <!--TODO danceability calculator - createa slider-->
+  <h3>How much do you wanna dance?</h3>
+  <div>
+    <rzslider rz-slider-model="req.danceability" rz-slider-options="sliderOptions"></rzslider>
+  </div>
+
+  <!--TODO energy calculator - create a slider -->
+  <h3>Rate your energy</h4>
+  <div>
+    <rzslider rz-slider-model="req.energy" rz-slider-options="sliderOptions"></rzslider>
+  </div>
+
+  <!--TODO loudness calculator-->
+  <h3>How loud do you want it?</h4>
+    <div>
+      <rzslider rz-slider-model="req.loudness" rz-slider-options="sliderOptions"></rzslider>
+    </div>
+
+  <button type="button" class="btn btn-success pull-right" ng-click="predict()">Go!</button>
 </div>

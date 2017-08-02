@@ -6,8 +6,10 @@ require('bootstrap');
 var angular = require('angular');
 require('angular-route'); //ng-route
 
+require('angularjs-slider');
+
 //main angular module for the app
-var app = angular.module('moodsic',['ngRoute']);
+var app = angular.module('moodsic',['ngRoute','rzModule']);
 
 //services
 require('./services/user')(app);
