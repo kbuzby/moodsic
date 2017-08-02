@@ -112,6 +112,19 @@ function run() {
 //process each file in the array
 function process(file,cb) {
 
+  var track_id = path.basename(file, '.h5');
+
+  Track.findById(track_id, function(err,track) {
+    if (err) console.log(err);
+    if (track) cb();
+    else {
+      processFile(file,cb);
+    }
+  });
+}
+
+function processFile(file,cb) {
+
   var hdf5File = new hdf5.File(file,Access.ACC_RDONLY);
   var hdf5Track = {
     metadata: {},
