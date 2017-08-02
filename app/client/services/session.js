@@ -5,6 +5,8 @@ module.exports = function(app) {
 
     var user = $window.localStorage.getItem('user');
 
+    var sessionTracks = {};
+
     function setUser(value) {
       user = value;
       $window.localStorage.setItem('user',value);
@@ -20,6 +22,14 @@ module.exports = function(app) {
 
     this.getUser = function() {
       return user;
+    }
+
+    this.setTracks = function(tracks) {
+      sessionTracks = tracks;
+    }
+
+    this.getTracks = function() {
+      return sessionTracks;
     }
   }]);
 }

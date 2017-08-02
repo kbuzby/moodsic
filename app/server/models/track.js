@@ -12,7 +12,7 @@ var trackSchema = new Schema({
   en_song_id: {type: String},
 
   //measured charactaristics
-  mode: {type: Number},
+  mode: {type: Number, index: true},
   key: {type: Number},
   tempo: {type: Number},
   danceability: {type: Number},

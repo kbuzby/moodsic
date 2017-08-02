@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('predictController',['$scope',function($scope) {
+  app.controller('predictController',['$scope','Track','Session',function($scope,Track,Session) {
 
     var defaults = {
       mode: 0,
@@ -20,7 +20,9 @@ module.exports = function(app) {
     $scope.req = defaults;
 
     $scope.predict = function() {
-      //TODO
+      Track.findByMood(Session.getUser(),$scope.req).then(function(tracks) {
+        Session.setTracks(tracks);
+      })
     }
   }]);
 }
