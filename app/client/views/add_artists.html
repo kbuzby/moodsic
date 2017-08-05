@@ -1,4 +1,23 @@
 <div class="well" ng-controller="addArtistsController">
   <!--TODO display group of artists that are clickable
   There should be a button to load more or refresh with different ones -->
+  <h3>Your favorite artists</h3>
+  <div id="divLikedArtists" class="row">
+    <div class="col-sm-12" style="text-align:center">
+      <span ng-repeat="artist in likedArtists">
+        <button type="button" class="btn btn-primary" style="border-radius:40px;margin:2px">{{artist.name}}</button>
+      </span>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Artists you should check out</h3>
+  <div id="divNewArtists" class="row">
+    <div class="col-sm-12" style="text-align:center">
+      <span ng-repeat="artist in newArtists">
+        <button type="button" class="btn btn-secondary" style="border-radius:40px;margin:2px" ng-click="addArtist(user,artists.id)">{{artist.name}}</span>
+      </div>
+    </div>
+  </div>
 </div>
