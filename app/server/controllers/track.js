@@ -36,26 +36,31 @@ function findByMood(req,res) {
   User.findById(user,'liked_artists', function(err,user) {
     if (err) res.send(err);
     else {
-      for (var i in user.liked_artists) {
-        if (relatedArtists.indexOf(user.liked_artists[i]) == -1){
-          relatedArtists.push(user.liked_artists[i]);
-        }
-      }
-      //find all the related artists to the liked artists
-      Artist.find({}).where('_id').in(relatedArtists)
-      .select('related_artists')
-      .exec(function(err,artists) {
-        if (err) res.send(err);
-        for (var j in artists) {
-          for (var k in artists[j].related_artists) {
-            if (relatedArtists.indexOf(artists[j].related_artists[k]) == -1) {
-              relatedArtists.push(artists[j].relatedArtists[k]);
-            }
+      if (user.liked_artists.length > 0){
+        for (var i in user.liked_artists) {
+          if (relatedArtists.indexOf(user.liked_artists[i]) == -1){
+            relatedArtists.push(user.liked_artists[i]);
           }
         }
+        //find all the related artists to the liked artists
+        Artist.find({}).where('_id').in(relatedArtists)
+        .select('related_artists')
+        .exec(function(err,artists) {
+          if (err) res.send(err);
+          for (var j in artists) {
+            for (var k in artists[j].related_artists) {
+              if (relatedArtists.indexOf(artists[j].related_artists[k]) == -1) {
+                relatedArtists.push(artists[j].relatedArtists[k]);
+              }
+            }
+          }
 
-        queryTracks(relatedArtists,req_mode,getRange(req_tempo,20),getRange(req_danceability,.1),getRange(req_energy,.1),getRange(req_loudness,.1),{min: req_hotttness == 0 ? 0 : .5, max: req_hotttness == 1 ? 1 : .5})
-      })
+          queryTracks(relatedArtists,req_mode,getRange(req_tempo,20),getRange(req_danceability,.1),getRange(req_energy,.1),getRange(req_loudness,.1),{min: req_hotttness == 0 ? 0 : .5, max: req_hotttness == 1 ? 1 : .5})
+        });
+      }
+      else {
+        queryTracks(null,req_mode,getRange(req_tempo,20),getRange(req_danceability,.1),getRange(req_energy,.1),getRange(req_loudness,.1),{min: req_hotttness == 0 ? 0 : .5, max: req_hotttness == 1 ? 1 : .5})
+      }
     }
   });
 }
@@ -74,7 +79,7 @@ function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hott
 
   //if the user has liked artists and we have a list of related artists
   //then filter based on them
-  if (relatedArtists.length) {
+  if (relatedArtists) {
     query.populate({
       path: 'album_id',
       select: 'artist_id name',
