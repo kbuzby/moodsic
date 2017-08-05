@@ -2,6 +2,7 @@
 const path = require('path');
 const user = require('./controllers/user');
 const track = require('./controllers/track');
+const artist = require('./controllers/artist');
 
 module.exports = function(app) {
 
@@ -27,6 +28,9 @@ module.exports = function(app) {
 
   app.route('/api/tracks/get20')
     .get(track.get20)
+
+  app.route('/api/artists')
+    .get(artist.getMany)
 
   app.get('*',function(req,res) {
     res.sendFile(path.join(__dirname + '/../client/'+'app.html'))

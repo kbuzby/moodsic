@@ -15,6 +15,7 @@ var app = angular.module('moodsic',['ngRoute','rzModule']);
 require('./services/user')(app);
 require('./services/session')(app);
 require('./services/track')(app);
+require('./services/artist')(app);
 
 //controllers
 require('./controllers/appController')(app);
