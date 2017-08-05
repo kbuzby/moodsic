@@ -14,6 +14,9 @@ module.exports = function(app) {
     .patch(user.update)
     .get(user.get)
 
+  app.route('/api/user/:id/liked_artists')
+    .get(user.getLikedArtists)
+
   app.route('/api/user/:id/add_artist')
     .patch(user.addArtist)
 

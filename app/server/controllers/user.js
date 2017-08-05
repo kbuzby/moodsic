@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const Artist = require('../models/artist');
 
 module.exports = {
   create: create,
@@ -7,7 +7,8 @@ module.exports = {
   changePassword: changePassword,
   addArtist: addArtist,
   login: login,
-  get: get
+  get: get,
+  getLikedArtists: getLikedArtists
 }
 
 function create(req,res) {
@@ -57,15 +58,15 @@ function changePassword(req,res) {
 
 function addArtist(req,res) {
   var id = req.params.id;
-  var artist_id = req.body;
+  var artist = req.body;
   User.findById(id, function (err,user) {
     if (err) res.send(err);
-
-    user.liked_artists.push(artist_id);
+    console.log(artist);
+    user.liked_artists.push(artist._id);
 
     user.save(function(err) {
       if (err) res.send(err);
-      res.json(artist_id);
+      res.json(artist);
     })
   })
 }
@@ -101,7 +102,26 @@ function get(req,res) {
   var id = req.params.id;
 
   User.findById(id,'name username location',function(err,user) {
-    if (err) console.log(err);
-    res.json(user);
+    if (err) res.send(err);
+    else {
+      res.json(user);
+    }
+  })
+}
+
+function getLikedArtists(req,res) {
+  var id = req.params.id;
+
+  User.findById(id).select('liked_artists')
+  .populate('liked_artists')
+  .exec(function(err,user) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
+    else {
+      console.log(user);
+      res.json(user.liked_artists);
+    }
   })
 }

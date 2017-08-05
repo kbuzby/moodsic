@@ -12,12 +12,15 @@
 
   <hr>
 
-  <h3>Artists you should check out</h3>
+  <div class="row">
+    <h3>Artists you should check out <button type="button" class="btn btn-success pull-right" ng-click="getMore()">Get More</button></h3>
+
+  </div>
   <div id="divNewArtists" class="row">
     <div class="col-sm-12" style="text-align:center">
       <span ng-repeat="artist in newArtists">
-        <button type="button" class="btn btn-secondary" style="border-radius:40px;margin:2px" ng-click="addArtist(user,artists.id)">{{artist.name}}</span>
-      </div>
+        <button type="button" class="btn btn-secondary" style="border-radius:40px;margin:2px" ng-click="addArtist(user,artist)">{{artist.name}}</span>
+      </span>
     </div>
   </div>
 </div>

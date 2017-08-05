@@ -3,28 +3,40 @@ module.exports = function(app) {
 
     $scope.user = Session.getUser();
 
-    var likedPage = 0;
-    var generalPage = 0;
-    var generalOffset = 0;
+    $scope.likedPage = 0;
+    $scope.generalPage = 0;
+    $scope.generalOffset = 0;
 
     User.getLikedArtists($scope.user).then(function(liked_artists) {
       $scope.likedArtists = liked_artists;
 
-      Artist.getMany($scope.user,likedPage,generalPage,generalOffset).then(function(artists) {
-        $scope.newArtists = artists;
-      })
+      getNewArtists();
     });
 
-    $scope.addArtist = function(userId,artistId) {
-      User.addArtist(userId,artistId).then(function(artist) {
-        $scope.likedArtists.push(artist);j
+    $scope.addArtist = function(userId,artist) {
+      User.addArtist(userId,artist).then(function(artist) {
+        $scope.likedArtists.push(artist);
+
+        for (var i in $scope.newArtists) {
+          if ($scope.newArtists[i]._id === artist._id) {
+            $scope.newArtists.splice(i,1);
+          }
+        }
       })
     }
 
     $scope.getMore = function() {
-      Artist.getMany($scope.user,likedPage,generalPage,generalOffset).then(function(artists) {
-        $scope.newArtists = artists;
-      })
+      getNewArtists();
+    }
+
+    function getNewArtists() {
+      Artist.getMany($scope.user,$scope.likedPage,$scope.generalPage,$scope.generalOffset).then(function(data) {
+        console.log(data);
+        $scope.likedPage = data.likedPage;
+        $scope.generalPage = data.generalPage;
+        $scope.generalOffset = data.generalOffset;
+        $scope.newArtists = data.artists;
+      });
     }
 
   }]);

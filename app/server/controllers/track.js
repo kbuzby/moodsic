@@ -81,23 +81,23 @@ function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hott
   //then filter based on them
   if (relatedArtists) {
     query.populate({
-      path: 'album_id',
-      select: 'artist_id name',
+      path: 'album',
+      select: 'artist name',
       match: {
         artist_id: {$in: relatedArtists}
       },
       populate: {
-        path: 'artist_id',
+        path: 'artist',
         select: 'name'
       }
     });
   }
   else {
     query.populate({
-      path: 'album_id',
-      select: 'artist_id name',
+      path: 'album',
+      select: 'artist name',
       populate: {
-        path: 'artist_id',
+        path: 'artist',
         select: 'name'
       }
     });

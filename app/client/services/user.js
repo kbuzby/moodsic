@@ -28,7 +28,12 @@ module.exports = function(app) {
 
       get: function(id) {
         return $http.get('/api/user/'+id).then(returnData);
+      },
+
+      getLikedArtists: function(id) {
+        return $http.get('/api/user/'+id+'/liked_artists').then(returnData);
       }
+
     }
   }]);
 }
