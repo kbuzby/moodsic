@@ -19,7 +19,8 @@
       </div>
 
       <ul class="nav navbar-nav pull-right" style="margin-right: 5px">
-        <li><button class="btn btn-danger navbar-btn" ng-show="loggedIn" ng-click="logout()">Log Out</button></li>
+        <li class="nav-item"><a href="/profile">{{name}}</a></li>
+        <li class="nav-item"><button class="btn btn-danger navbar-btn" ng-show="loggedIn" ng-click="logout()">Log Out</button></li>
         <li></li>
       </ul>
     </nav>

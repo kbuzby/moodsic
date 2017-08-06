@@ -1,14 +1,29 @@
 module.exports = function(app) {
   app.controller('loginController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
 
-    if (Session.getUser()) goToPredictPage();
+    if (Session.getId()) goToPredictPage();
 
-    $scope.login = function(username,password) {
+    $scope.userError = false;
+    $scope.passwordError = false;
 
-      //TODO make sure there's some validation
-      User.login({username: username, password: password}).then(function(retData) {
-        Session.login(retData.user);
-        goToPredictPage();
+    $scope.login = function() {
+      $scope.userError = false;
+      $scope.passwordError = false;
+
+      User.login({username: $scope.username, password: $scope.password}).then(function(retData) {
+        if (retData.status == 'loggedIn') {
+          Session.login(retData.user);
+          goToPredictPage();
+        }
+        else if (retData.status == 'userNotFound') {
+          console.log('user not found');
+          $scope.userError = true;
+        }
+        else if (retData.status == 'invalidPassword') {
+          console.log('invalid password');
+          $scope.passwordError = true;
+        }
+
       });
     }
 

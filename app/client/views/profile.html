@@ -2,17 +2,18 @@
   <h3>Profile</h3>
   <br>
   <div class="row">
-    <h5 class="col-md-3">Name:</h5>
-    <p class="col-md-6">{{user.name}}</p>
+    <span class="col-md-6"><strong>Name:</strong></span>
+    <span class="col-md-6">{{user.name}}</span>
   </div>
   <div class="row">
-    <h5 class="col-md-3">Username:</h5>
-    <p class="col-md-6">{{user.username}}</p>
+    <span class="col-md-3"><strong>Username:</strong></span>
+    <span class="col-md-6">{{user.username}}</span>
   </div>
   <div class="row">
-    <h5 class="col-md-3">Zip Code:</h5>
-    <p class="col-md-6">{{user.location}}</p>
+    <span class="col-md-3"><strong>Zip Code:</strong></span>
+    <span class="col-md-6">{{user.location}}</span>
   </div>
-  <button type="button" class="btn btn-primary" ng-click="editUser()">Edit Profile</button>
-  <button type="button" class="btn btn-primary" ng-click="likeArtists()">Add Favorite Artists</button>
+  <br>
+  <a type="button" class="btn btn-primary" href="/profile/edit">Edit Profile</a>
+  <a type="button" class="btn btn-primary" href="/profile/artists">Edit Favorite Artists</a>
 </div>

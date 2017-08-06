@@ -2,16 +2,18 @@
   <h3 >Login</h3>
   <br>
   <form>
-    <div class="form-group">
-      <label for="efUsername">Username</label>
-      <input id="efUsername" type="text" class="form-control" ng-model="username" required="true"/>
+    <div class="form-group" ng-class="{'has-error':userError}">
+      <label for="efUsername" class="form-control-label" >Username</label>
+      <input id="efUsername" type="text" class="form-control" ng-class="{'form-control-danger':userError}" ng-model="username" required="true">
+      <div class="form-text" ng-show="userError">Username not found</div>
     </div>
-    <div class="form-group">
-      <label for="efPassword">Password</label>
-      <input id="efPassword" type="password" class="form-control" ng-model="password" required="true"/>
+    <div class="form-group" ng-class="{'has-error':passwordError}" >
+      <label for="efPassword" class="form-control-label">Password</label>
+      <input id="efPassword" type="password" class="form-control" ng-class="{'form-control-danger':userError}" ng-model="password" required="true"/>
+      <div class="form-text" ng-show="passwordError">Invalid password</div>
     </div>
     <div class="clearfix">
-      <button type="submit" class="btn btn-success pull-right" ng-click="login(user,password)">Login</button>
+      <button type="submit" class="btn btn-success pull-right" ng-click="login()">Login</button>
     </div>
   </form>
 </div>

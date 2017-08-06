@@ -18,7 +18,7 @@ function create(req,res) {
       console.log(err);
       res.send(err);
     }
-    res.json({user: new_user._id});
+    res.json({user: {_id: new_user._id, name: new_user.name}});
   });
 }
 
@@ -73,28 +73,31 @@ function addArtist(req,res) {
 
 
 function login(req,res) {
-  var credentials = req.data;
+  var credentials = req.body;
+  console.log(credentials);
 
   User.findOne({username: credentials.username}, function (err,user) {
     if (err) res.send(err);
 
     if (!user) {
-      console.log('user not found' + user.username);
+      console.log('user not found ' + credentials.username);
       res.json({status: 'userNotFound'});
     }
 
-    user.comparePassword(credentials.password, function(err,isMatch) {
-      if (err) res.send(err);
+    else {
+      user.comparePassword(credentials.password, function(err,isMatch) {
+        if (err) res.send(err);
 
-      if (isMatch) {
-        console.log('loggin in '+user.username);
-        res.json({status: 'loggedIn', user: user._id});
-      }
-      else {
-        console.log('invalid password');
-        res.json({status: 'invalidPassword'});
-      }
-    })
+        if (isMatch) {
+          console.log('logging in '+user.username);
+          res.json({status: 'loggedIn', user: {_id: user._id, name: user.name}});
+        }
+        else {
+          console.log('invalid password');
+          res.json({status: 'invalidPassword'});
+        }
+      })
+    }
   })
 }
 

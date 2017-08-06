@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     return {
       login: function(credentials) {
-        return $http.post('/api/user/login',credentials).then(returnData);
+        return $http.post('/api/login',credentials).then(returnData);
       },
 
       signup: function(user) {

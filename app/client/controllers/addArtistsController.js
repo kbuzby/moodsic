@@ -1,13 +1,13 @@
 module.exports = function(app) {
   app.controller('addArtistsController',['$scope','Session','User','Artist',function($scope,Session,User,Artist) {
 
-    $scope.user = Session.getUser();
+    $scope.userId = Session.getId();
 
     $scope.likedPage = 0;
     $scope.generalPage = 0;
     $scope.generalOffset = 0;
 
-    User.getLikedArtists($scope.user).then(function(liked_artists) {
+    User.getLikedArtists($scope.userId).then(function(liked_artists) {
       $scope.likedArtists = liked_artists;
 
       getNewArtists();
