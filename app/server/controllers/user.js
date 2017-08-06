@@ -61,13 +61,15 @@ function addArtist(req,res) {
   var artist = req.body;
   User.findById(id, function (err,user) {
     if (err) res.send(err);
-    console.log(artist);
-    user.liked_artists.push(artist._id);
+    else {
+      console.log(artist);
+      user.liked_artists.push(artist._id);
 
-    user.save(function(err) {
-      if (err) res.send(err);
-      res.json(artist);
-    })
+      user.save(function(err) {
+        if (err) res.send(err);
+        res.json(artist);
+      })
+    }    
   })
 }
 

@@ -13,10 +13,9 @@ module.exports = function(app) {
       getNewArtists();
     });
 
-    $scope.addArtist = function(userId,artist) {
-      User.addArtist(userId,artist).then(function(artist) {
+    $scope.addArtist = function(artist) {
+      User.addArtist($scope.userId,artist).then(function(artist) {
         $scope.likedArtists.push(artist);
-
         for (var i in $scope.newArtists) {
           if ($scope.newArtists[i]._id === artist._id) {
             $scope.newArtists.splice(i,1);
@@ -30,8 +29,7 @@ module.exports = function(app) {
     }
 
     function getNewArtists() {
-      Artist.getMany($scope.user,$scope.likedPage,$scope.generalPage,$scope.generalOffset).then(function(data) {
-        console.log(data);
+      Artist.getMany($scope.userId,$scope.likedPage,$scope.generalPage,$scope.generalOffset).then(function(data) {
         $scope.likedPage = data.likedPage;
         $scope.generalPage = data.generalPage;
         $scope.generalOffset = data.generalOffset;
