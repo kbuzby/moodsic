@@ -6,6 +6,7 @@ module.exports = {
   update: update,
   changePassword: changePassword,
   addArtist: addArtist,
+  removeArtist: removeArtist,
   login: login,
   get: get,
   getLikedArtists: getLikedArtists
@@ -69,6 +70,32 @@ function addArtist(req,res) {
       user.save(function(err) {
         if (err) res.send(err);
         res.json(artist);
+      })
+    }
+  })
+}
+
+function removeArtist(req,res) {
+  var id = req.params.id;
+  var artist = req.body;
+
+  User.findById(id, function(err,user) {
+    if (err) res.send(err);
+    else {
+      var found;
+      for (var i=0; i < user.liked_artists.length; i++) {
+        if (user.liked_artists[i] === artist._id) {
+          console.log('found');
+          user.liked_artists.splice(i,1);
+          found = true;
+        }
+      }
+      user.save(function(err) {
+        if (err) res.send(err)
+        else if (found) {
+          console.log(artist);
+          res.json(artist);
+        }
       })
     }
   })

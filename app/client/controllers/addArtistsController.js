@@ -16,11 +16,13 @@ module.exports = function(app) {
     $scope.addArtist = function(artist) {
       User.addArtist($scope.userId,artist).then(function(artist) {
         $scope.likedArtists.push(artist);
-        for (var i in $scope.newArtists) {
-          if ($scope.newArtists[i]._id === artist._id) {
-            $scope.newArtists.splice(i,1);
-          }
-        }
+        findAndDelete(artist,$scope.newArtists);
+      })
+    }
+
+    $scope.removeArtist = function(artist) {
+      User.removeArtist($scope.userId,artist).then(function(artist) {
+        findAndDelete(artist,$scope.likedArtists);
       })
     }
 
@@ -35,6 +37,15 @@ module.exports = function(app) {
         $scope.generalOffset = data.generalOffset;
         $scope.newArtists = data.artists;
       });
+    }
+
+    function findAndDelete(artist,arr) {
+      for (var i in arr) {
+        if (arr[i]._id == artist._id) {
+          arr.splice(i,1);
+          return;
+        }
+      }
     }
 
   }]);

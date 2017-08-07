@@ -26,6 +26,10 @@ module.exports = function(app) {
         return $http.patch('/api/user/'+id+'/add_artist',artist).then(returnData);
       },
 
+      removeArtist: function(id,artist) {
+        return $http.patch('/api/user/'+id+'/remove_artist',artist).then(returnData);
+      },
+
       get: function(id) {
         return $http.get('/api/user/'+id).then(returnData);
       },

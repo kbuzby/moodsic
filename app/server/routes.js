@@ -20,6 +20,9 @@ module.exports = function(app) {
   app.route('/api/user/:id/add_artist')
     .patch(user.addArtist)
 
+  app.route('/api/user/:id/remove_artist')
+    .patch(user.removeArtist)
+
   app.route('/api/user/:id/change_password')
     .patch(user.changePassword)
 
