@@ -1,8 +1,6 @@
 module.exports = function(app) {
   app.controller('loginController',['$scope','$location','Session','User',function($scope,$location,Session,User) {
 
-    if (Session.getId()) goToPredictPage();
-
     $scope.userError = false;
     $scope.passwordError = false;
 
@@ -12,6 +10,7 @@ module.exports = function(app) {
 
       User.login({username: $scope.username, password: $scope.password}).then(function(retData) {
         if (retData.status == 'loggedIn') {
+          Session.logout();
           Session.login(retData.user);
           goToPredictPage();
         }

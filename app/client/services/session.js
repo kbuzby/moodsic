@@ -3,13 +3,13 @@ module.exports = function(app) {
 
     //TODO maybe update this to store a token so we're not storing raw data
 
-    var username = $window.localStorage.getItem('user');
+    var name = $window.localStorage.getItem('user');
     var id = $window.localStorage.getItem('id');
 
     var sessionTracks = [];
 
     function setUser(value) {
-      username = value.name;
+      name = value.name;
       id = value._id;
       $window.localStorage.setItem('user',value.name);
       $window.localStorage.setItem('id',value._id);
@@ -19,12 +19,18 @@ module.exports = function(app) {
       setUser(value);
     }
 
+    this.setUser = function(user) {
+      setUser(user);
+    }
+
     this.logout = function() {
+      name = null;
+      id = null;
       $window.localStorage.clear();
     }
 
     this.getName = function() {
-      return username;
+      return name;
     }
 
     this.getId = function() {
@@ -32,11 +38,11 @@ module.exports = function(app) {
     }
 
     this.setTracks = function(tracks) {
-      this._sessionTracks = tracks;
+      sessionTracks = tracks;
     }
 
     this.getTracks = function() {
-      return this._sessionTracks;
+      return sessionTracks;
     }
   }]);
 }

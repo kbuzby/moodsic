@@ -1,7 +1,9 @@
 module.exports = function(app) {
-  app.controller('addArtistsController',['$scope','Session','User','Artist',function($scope,Session,User,Artist) {
+  app.controller('addArtistsController',['$scope','$location','Session','User','Artist',function($scope,$location,Session,User,Artist) {
 
     $scope.userId = Session.getId();
+
+    if (!$scope.userId) $location.path('/login');
 
     $scope.likedPage = 0;
     $scope.generalPage = 0;

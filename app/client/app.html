@@ -19,9 +19,10 @@
       </div>
 
       <ul class="nav navbar-nav pull-right" style="margin-right: 5px">
-        <li class="nav-item"><a href="/profile">{{name}}</a></li>
-        <li class="nav-item"><button class="btn btn-danger navbar-btn" ng-show="loggedIn" ng-click="logout()">Log Out</button></li>
-        <li></li>
+        <li class="nav-item" ng-show="loggedIn"><a href="/profile">{{name}}</a></li>
+        <li class="nav-item" ng-show="loggedIn"><button class="btn btn-danger navbar-btn"ng-click="logout()">Log Out</button></li>
+        <li class="nav-item" ng-show="!loggedIn"><a href="/signup">Sign Up</a></li>
+        <li class="nav-item" ng-show="!loggedIn"><a href="/login">Login</a></li>
       </ul>
     </nav>
     <br>
