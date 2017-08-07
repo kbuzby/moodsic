@@ -24,9 +24,14 @@ function create(req,res) {
 }
 
 function update(req,res) {
+  var id = req.params.id;
+  var data = req.body;
+
   User.findByIdAndUpdate(id,data,function(err,user) {
     if (err) res.send(err);
-    //TODO send updated user response
+    else {
+      res.json(user);
+    }
   })
 }
 
@@ -85,7 +90,6 @@ function removeArtist(req,res) {
       var found;
       for (var i=0; i < user.liked_artists.length; i++) {
         if (user.liked_artists[i] === artist._id) {
-          console.log('found');
           user.liked_artists.splice(i,1);
           found = true;
         }
@@ -93,7 +97,6 @@ function removeArtist(req,res) {
       user.save(function(err) {
         if (err) res.send(err)
         else if (found) {
-          console.log(artist);
           res.json(artist);
         }
       })
