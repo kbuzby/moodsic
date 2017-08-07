@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "node server/app.js",
+    "bundle": "browserify client/app-raw.js -o client/app.js",
     "dev-server": "nodemon",
     "dev-client": "watchify client/app-raw.js -o client/app.js -v"
   }
