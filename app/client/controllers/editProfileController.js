@@ -9,10 +9,13 @@ module.exports = function(app) {
     });
 
     $scope.saveUser = function() {
-      User.update($scope.user._id,$scope.user).then(function(user) {
-        Session.setUser(user);
-        alert('Updates saved');
-      })
+      if ($scope.user.name != "") {
+        User.update($scope.user._id,$scope.user).then(function(user) {
+          Session.setUser(user);
+          alert('Updates saved');
+          $location.path('/profile');
+        })
+      }
     }
   }])
 }

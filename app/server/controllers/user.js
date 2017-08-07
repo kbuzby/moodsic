@@ -125,7 +125,7 @@ function login(req,res) {
       user.comparePassword(credentials.password, function(err,isMatch) {
         if (err) res.send(err);
 
-        if (isMatch) {
+        else if (isMatch) {
           console.log('logging in '+user.username);
           res.json({status: 'loggedIn', user: {_id: user._id, name: user.name}});
         }
