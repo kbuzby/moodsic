@@ -6,9 +6,10 @@
       <label for="efName">Name</label>
       <input id="efName" type="text" class="form-control" ng-model="name" required="true"/>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error':userError}">
       <label for="efUsername">Username</label>
       <input id="efUsername" type="text" class="form-control" ng-model="username" required="true"/>
+      <div class="form-text" ng-show="userError">Username not available</div>
     </div>
     <div class="form-group">
       <label for="efPassword">Password</label>

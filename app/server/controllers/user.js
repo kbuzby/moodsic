@@ -17,9 +17,9 @@ function create(req,res) {
   new_user.save(function(err) {
     if (err) {
       console.log(err);
-      res.send(err);
+      res.json({err:err});
     }
-    res.json({user: {_id: new_user._id, name: new_user.name}});
+    else res.json({user: {_id: new_user._id, name: new_user.name}});
   });
 }
 
