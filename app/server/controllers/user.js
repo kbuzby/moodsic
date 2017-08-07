@@ -59,6 +59,7 @@ function changePassword(req,res) {
 function addArtist(req,res) {
   var id = req.params.id;
   var artist = req.body;
+
   User.findById(id, function (err,user) {
     if (err) res.send(err);
     else {
@@ -69,7 +70,7 @@ function addArtist(req,res) {
         if (err) res.send(err);
         res.json(artist);
       })
-    }    
+    }
   })
 }
 
@@ -118,7 +119,7 @@ function getLikedArtists(req,res) {
   var id = req.params.id;
 
   User.findById(id).select('liked_artists')
-  .populate('liked_artists')
+  .populate('liked_artists','name')
   .exec(function(err,user) {
     if (err) {
       console.log(err);

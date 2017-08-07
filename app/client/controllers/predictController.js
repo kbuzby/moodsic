@@ -28,9 +28,7 @@ module.exports = function(app) {
 
     $scope.predict = function() {
       Track.findByMood(Session.getId(),$scope.req).then(function(tracks) {
-        console.log(tracks);
         Session.setTracks(tracks);
-        console.log(Session.getTracks());
         $location.path('/results');
       });
     }
