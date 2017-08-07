@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.controller('loginController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
+  app.controller('loginController',['$scope','$location','Session','User',function($scope,$location,Session,User) {
 
     if (Session.getId()) goToPredictPage();
 
@@ -28,7 +28,7 @@ module.exports = function(app) {
     }
 
     function goToPredictPage() {
-      $window.location.href = "/predict";
+      $location.path("/predict");
     }
   }]);
 }

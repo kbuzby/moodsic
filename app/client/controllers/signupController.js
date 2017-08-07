@@ -1,7 +1,7 @@
 module.exports = function(app) {
-  app.controller('signupController',['$scope','$window','Session','User',function($scope,$window,Session,User) {
+  app.controller('signupController',['$scope','$location','Session','User',function($scope,$location,Session,User) {
 
-    if (Session.getId()) $window.location.href = "/predict";
+    if (Session.getId()) $location.path("/predict");
 
     $scope.signup = function(name,username,password,location) {
       //TODO make sure there's some validation
@@ -12,7 +12,7 @@ module.exports = function(app) {
         location: location
       }).then(function(retData) {
         Session.login(retData.user);
-        $window.location.href = "/profile/artists";
+        $location.path("/profile/artists");
       })
     }
   }]);
