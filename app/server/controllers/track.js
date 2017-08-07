@@ -1,6 +1,7 @@
 const Track = require('../models/track');
 const Album = require('../models/album');
 const Artist = require('../models/artist');
+const User = require('../models/user');
 
 module.exports = {
   findByMood: findByMood,
@@ -24,56 +25,62 @@ function get20(req,res) {
 
 function findByMood(req,res) {
   var user = req.query.user;
-  var req_mode = req.query.mode;
-  var req_tempo = req.query.tempo;
-  var req_danceability = req.query.danceability;
-  var req_energy = req.query.energy;
-  var req_loudness = req.query.loudness;
-  var req_hotttness = req.query.hotttness;
+  var req_mode = parseInt(req.query.mode);
+  var req_tempo = parseInt(req.query.tempo);
+  var req_loudness = parseFloat(req.query.loudness);
+  var req_hotttness = parseInt(req.query.hotttness);
 
   //get artists liked by the user
   var relatedArtists = [];
   User.findById(user,'liked_artists', function(err,user) {
-    if (err) res.send(err);
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
     else {
       if (user.liked_artists.length > 0){
-        for (var i in user.liked_artists) {
+        for (var i = 0; i< user.liked_artists.length; i++) {
           if (relatedArtists.indexOf(user.liked_artists[i]) == -1){
             relatedArtists.push(user.liked_artists[i]);
           }
         }
+
         //find all the related artists to the liked artists
         Artist.find({}).where('_id').in(relatedArtists)
         .select('related_artists')
         .exec(function(err,artists) {
-          if (err) res.send(err);
-          for (var j in artists) {
-            for (var k in artists[j].related_artists) {
-              if (relatedArtists.indexOf(artists[j].related_artists[k]) == -1) {
-                relatedArtists.push(artists[j].relatedArtists[k]);
+          if (err) {
+            console.log(err);
+            res.send(err);
+          }
+          else {
+            for (var j in artists) {
+              for (var k = 0; k<artists[j].related_artists.length; k++) {
+                if (relatedArtists.indexOf(artists[j].related_artists[k]) == -1) {
+                  relatedArtists.push(artists[j].related_artists[k]);
+                }
               }
             }
-          }
 
-          queryTracks(relatedArtists,req_mode,getRange(req_tempo,20),getRange(req_danceability,.1),getRange(req_energy,.1),getRange(req_loudness,.1),{min: req_hotttness == 0 ? 0 : .5, max: req_hotttness == 1 ? 1 : .5})
+            req_tempo = 100;
+            queryTracks(relatedArtists,req_mode,{min:req_tempo-25,max:req_tempo+25},{min:req_loudness-3,max:req_loudness+3},{min: req_hotttness == 0 ? 0 : .1, max: req_hotttness == 1 ? 1 : .1},res)
+          }
         });
       }
       else {
-        queryTracks(null,req_mode,getRange(req_tempo,20),getRange(req_danceability,.1),getRange(req_energy,.1),getRange(req_loudness,.1),{min: req_hotttness == 0 ? 0 : .5, max: req_hotttness == 1 ? 1 : .5})
+        queryTracks(null,req_mode,{min:req_tempo-25,max:req_tempo+25},{min:req_loudness-3,max:req_loudness+3},{min: req_hotttness == 0 ? 0 : .1, max: req_hotttness == 1 ? 1 : .1},res)
       }
     }
   });
 }
 
-function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hotttness){
+function queryTracks(relatedArtists,mode,tempo,loudness,hotttness,res){
 
   //find the tracks that roughly match the adjusted params - build a query and then exec after it's constructed
   //search on the params first then populate with the related albums and artists
   //then filter to all the related artsist of the liked artists
   var query = Track.find({mode: mode})
   .where('tempo').gte(tempo.min).lte(tempo.max)
-  .where('danceability').gte(danceability.min).lte(danceability.max)
-  .where('energy').gte(energy.min).lte(energy.max)
   .where('loudness').gte(loudness.min).lte(loudness.max)
   .where('hotttness').gte(hotttness.min).lte(hotttness.max)
 
@@ -84,7 +91,7 @@ function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hott
       path: 'album',
       select: 'artist name',
       match: {
-        artist_id: {$in: relatedArtists}
+        artist: {$in: relatedArtists}
       },
       populate: {
         path: 'artist',
@@ -103,7 +110,7 @@ function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hott
     });
   }
 
-  query.select('title album_id');
+  query.select('title album');
 
   query.exec(function(err,tracks){
     if (err) {
@@ -114,7 +121,7 @@ function queryTracks(relatedArtists,mode,tempo,danceability,energy,loudness,hott
       //remove tracks that didn't get album populated
       //the album wouldn't be populated in cases when we are limiting based on relatedArtists
       tracks = tracks.filter(function(track){
-        return track.album.name !== undefined;
+        return track.album !== null;
       });
 
       res.json(tracks);

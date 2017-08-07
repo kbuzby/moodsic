@@ -29,7 +29,8 @@ module.exports = function(app) {
     .when('/results', {
       templateUrl: 'views/results.html',
       controller: 'resultsController'
-    });
+    })
+    .otherwise({redirectTo: '/predict'});
 
     $locationProvider.html5Mode(true);
   }])
