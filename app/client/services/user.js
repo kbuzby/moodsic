@@ -19,7 +19,7 @@ module.exports = function(app) {
       },
 
       changePassword: function(id,data) {
-        return $http.patch('/api/user'+id+'change_password',data).then(returnData);
+        return $http.patch('/api/user/'+id+'/change_password',data).then(returnData);
       },
 
       addArtist: function(id,artist) {

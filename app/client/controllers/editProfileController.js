@@ -14,9 +14,5 @@ module.exports = function(app) {
         alert('Updates saved');
       })
     }
-
-    $scope.changePassword = function() {
-      //TODO redirect to change password page
-    }
   }])
 }

@@ -15,8 +15,11 @@
       <input id="efLocation" type="text" class="form-control" ng-model="user.location"/>
     </div>
     <div class="clearfix">
-      <button type="submit" class="btn btn-primary" ng-click="changePassword()">Change Password</button>
-      <button type="submit" class="btn btn-success pull-right" ng-click="saveUser()">Save Changes</button>
+      <a class="btn btn-primary" href="/profile/password">Change Password</a>
+      <div class="pull-right">
+        <a class="btn btn-danger" href="/profile">Cancel</a>
+        <button type="submit" class="btn btn-success" ng-click="saveUser()">Save Changes</button>
+      </div>
     </div>
   </form>
 </div>

@@ -16,7 +16,6 @@ function create(req,res) {
   var new_user = new User(req.body);
   new_user.save(function(err) {
     if (err) {
-      console.log(err);
       res.json({err:err});
     }
     else res.json({user: {_id: new_user._id, name: new_user.name}});
@@ -37,28 +36,34 @@ function update(req,res) {
 
 function changePassword(req,res) {
   var id = req.params.id;
-  var old_pass = req.body.password;
-  var new_pass = req.body.new_password;
+  var old_pass = req.body.oldPassword;
+  var new_pass = req.body.newPassword;
 
   User.findById(id, function(err,user) {
     if (err) res.send(err);
 
     if (!user) {
-      //TODO send user not found response, but this shouldn't happen at this point
+      res.status(404).json({err:"userNotFound"});
     }
-
-    user.comparePassword(password, function(err,isMatch) {
-      if (isMatch) {
-        user.password = new_password;
-        user.save(function(err) {
-          if (err) res.send(err);
-          //TODO send updated password response
-        })
-      }
-      else {
-        //TODO send invalid password response
-      }
-    })
+    else {
+      user.comparePassword(old_pass,function(err,isMatch) {
+        if (isMatch) {
+          user.password = new_pass;
+          user.save(function(err) {
+            if (err) {
+              console.log(err);
+              res.send(err);
+            }
+            else {
+              res.status(200).json("ok");
+            }
+          })
+        }
+        else {
+          res.json({err:"invalidOldPassword"});
+        }
+      })
+    }
   })
 }
 
@@ -107,7 +112,6 @@ function removeArtist(req,res) {
 
 function login(req,res) {
   var credentials = req.body;
-  console.log(credentials);
 
   User.findOne({username: credentials.username}, function (err,user) {
     if (err) res.send(err);

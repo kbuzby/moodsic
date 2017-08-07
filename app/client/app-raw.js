@@ -26,6 +26,7 @@ require('./controllers/editProfileController')(app);
 require('./controllers/predictController')(app);
 require('./controllers/resultsController')(app);
 require('./controllers/addArtistsController')(app);
+require('./controllers/changePasswordController')(app);
 
 
 //directives

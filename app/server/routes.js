@@ -6,7 +6,6 @@ const artist = require('./controllers/artist');
 
 module.exports = function(app) {
 
-  //TODO add routes to api end points
   app.route('/api/user')
     .post(user.create)
 

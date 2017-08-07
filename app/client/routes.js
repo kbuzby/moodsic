@@ -22,6 +22,10 @@ module.exports = function(app) {
       templateUrl: 'views/add_artists.html',
       conroller: 'addArtistsController'
     })
+    .when('/profile/password', {
+      templateUrl: 'views/change_password.html',
+      controller: 'changePasswordController'
+    })
     .when('/predict', {
       templateUrl: 'views/predict.html',
       controller: 'predictController'
