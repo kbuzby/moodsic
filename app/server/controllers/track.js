@@ -110,7 +110,7 @@ function queryTracks(relatedArtists,mode,tempo,loudness,hotttness,res){
     });
   }
 
-  query.select('title album');
+  query.select('title album').limit('500');
 
   query.exec(function(err,tracks){
     if (err) {
